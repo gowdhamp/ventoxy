@@ -1,4 +1,5 @@
 import React from 'react';
+import Carousel from './components/Carousel'
 import './App.css';
 import './assets/css/grid.css';
 import Dashboard from './components/Dashboard';
@@ -8,6 +9,7 @@ const App = () => {
   return (
     <div>
       <Header />
+      <Carousel />
       <Dashboard />
     </div>
   );

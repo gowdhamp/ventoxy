@@ -41,15 +41,11 @@ const Header = () => {
                     </a>
                   </li>
                   <li className="active">
-                    <a href="/" className="d-inline-blocke color-white">
-                      Dashboard
-                    </a>
+                    <a href="/">Dashboard</a>
                   </li>
 
                   <li className="active">
-                    <a href="/" className="d-inline-block color-white">
-                      Login/Register
-                    </a>
+                    <a href="/">Login/Register</a>
                   </li>
                 </ul>
               </div>

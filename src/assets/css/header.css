@@ -4,7 +4,7 @@
   left: 0;
   position: fixed;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(225, 225, 225, 0.7);
   display: block;
   box-sizing: border-box;
 }
@@ -37,7 +37,7 @@
   display: inline-block;
 }
 .menu_list_hover li.active {
-  background-color: #036bfb;
+  background-color: #070707;
   border-radius: 10px;
 }
 .menu_list_hover li.active .menu_list_hover li a {
@@ -46,7 +46,7 @@
 
 .menu_list_hover li a {
   font-size: 16px;
-  color: #222222;
+  color: #ffffff;
   font-weight: 700;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -55,7 +55,7 @@
   display: inline-block;
 }
 .logo h3 {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0px 10px;
   font-family: 'Roboto', sans-serif;
+  font-size: 22px;
 }

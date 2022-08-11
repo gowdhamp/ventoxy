@@ -2,7 +2,7 @@
 
 :root {
   --main-bg: #ffffff;
-  --main-bg-transparent: #ffffff8e;
+  --main-bg-transparent: rgba(255, 255, 255, 0.7);
   --second-bg: #fafafb;
   --txt-color: #101112;
   --txt-white: #fff;
@@ -43,8 +43,7 @@ body {
   width: 100%;
   height: 100%;
   left: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url(./assets/images/pexels.jpg);
+  background: linear-gradient(grey, grey, white);
   background-position: center;
   background-size: cover;
   z-index: -1;
@@ -62,10 +61,6 @@ body {
 a {
   text-decoration: none;
   color: unset;
-}
-
-a:hover {
-  color: var(--main-color);
 }
 
 button {

@@ -146,7 +146,7 @@ const Dashboard = () => {
       {
         name: 'Temperature',
         image: 'bx bxs-thermometer temp-color',
-        value: `${axdata.temperatue}`,
+        value: `${axdata.temperature}`,
       },
       {
         name: 'Blood Pressure',

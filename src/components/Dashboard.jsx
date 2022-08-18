@@ -120,7 +120,16 @@ const Dashboard = () => {
     },
   };
 
-  const [axdata, setaxdata] = useState(null);
+  const [axdata, setaxdata] = useState({
+    id: '10',
+    emg: '12',
+    ecg: '24',
+    temperature: '97.5',
+    blood_pressure: '78',
+    heart_rate: '73',
+    pulse_oxi: '45',
+    timestamp: '2022-08-18 12:46:56',
+  });
   const [Hdata, setHdata] = useState(HealthDataInitial);
   const [Udata, setUdata] = useState(UserDataInitial);
   const [series, setSeries] = useState([]);

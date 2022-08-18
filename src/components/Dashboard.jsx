@@ -4,11 +4,11 @@ import loader from '../assets/images/loader.gif';
 import logo from '../assets/images/logo.png';
 import Chart from 'react-apexcharts';
 import '../assets/css/dashboard.css';
-import { HealthData } from '../constants/HealthData';
 import { UserData } from '../constants/UserData';
 import { HealthDataInitial } from '../constants/HealthDataInitial';
 import { UserDataInitial } from '../constants/UserDataInitial';
 import { useState } from 'react';
+import axios from 'axios';
 
 const Dashboard = () => {
   const radialBar = {
@@ -120,36 +120,65 @@ const Dashboard = () => {
     },
   };
 
+  const [axdata, setaxdata] = useState(null);
   const [Hdata, setHdata] = useState(HealthDataInitial);
   const [Udata, setUdata] = useState(UserDataInitial);
   const [series, setSeries] = useState([]);
   const [img, setimg] = useState(loader);
 
   useEffect(() => {
-    setTimeout(() => {
-      setHdata(HealthData);
-      setUdata(UserData);
-      setSeries([
-        {
-          name: 'Blood Pressure',
-          data: [30, 70, 20, 90, 36, 80, 30, 91, 60],
-        },
-        {
-          name: 'Heart Rate',
-          data: [70, 30, 70, 80, 40, 16, 40, 20, 51],
-        },
-        {
-          name: 'Oximeter',
-          data: [55, 16, 19, 67, 38, 90, 12, 21, 50],
-        },
-        {
-          name: 'Glucometer',
-          data: [10, 62, 78, 65, 23, 43, 78, 87, 28],
-        },
-      ]);
-      setimg(ecg);
-    }, 10000);
-  }, []);
+    axios
+      .get('https://exploremychoice.in/sih/ventoxy/getdata.php')
+      .then((response) => {
+        setaxdata(response.data[0]);
+      });
+
+    setHdata([
+      {
+        name: 'Temperature',
+        image: 'bx bxs-thermometer temp-color',
+        value: `${axdata.temperatue}`,
+      },
+      {
+        name: 'Blood Pressure',
+        image: 'bx bxs-heart-circle pressure-color',
+        value: `${axdata.blood_pressure}`,
+      },
+      {
+        name: 'Oxygen (Conc)',
+        image: 'bx bx-wind wind-color',
+        value: '78%',
+      },
+      {
+        name: 'Heart Rate',
+        image: 'bx bxs-heart heart-color',
+        value: `${axdata.heart_rate}`,
+      },
+    ]);
+
+    setUdata(UserData);
+
+    setSeries([
+      {
+        name: 'Blood Pressure',
+        data: [30, 70, 20, 90, 36, 80, 30, 91, 60],
+      },
+      {
+        name: 'Heart Rate',
+        data: [70, 30, 70, 80, 40, 16, 40, 20, 51],
+      },
+      {
+        name: 'Oximeter',
+        data: [55, 16, 19, 67, 38, 90, 12, 21, 50],
+      },
+      {
+        name: 'Glucometer',
+        data: [10, 62, 78, 65, 23, 43, 78, 87, 28],
+      },
+    ]);
+
+    setimg(ecg);
+  }, [axdata]);
 
   return (
     <div>

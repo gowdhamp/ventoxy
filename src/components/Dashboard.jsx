@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import ecg from '../assets/images/ecg.gif';
-import loader from '../assets/images/loader.gif';
+// import ecg from '../assets/images/ecg.gif';
+// import loader from '../assets/images/loader.gif';
 import logo from '../assets/images/logo.png';
 import Chart from 'react-apexcharts';
 import '../assets/css/dashboard.css';
@@ -71,6 +71,54 @@ const Dashboard = () => {
     },
   };
 
+  const ecgChart = {
+    series: [
+      {
+        name: 'ECG',
+        data: [
+          12, 34, 56, 78, 56, 89, 56, 45, 87, 45, 34, 25, 67, 56, 12, 36, 41,
+        ],
+      },
+    ],
+    options: {
+      chart: {
+        id: 'realtime',
+        animations: {
+          enabled: true,
+          easing: 'linear',
+          dynamicAnimation: {
+            speed: 1000,
+          },
+        },
+        toolbar: {
+          show: false,
+        },
+        zoom: {
+          enabled: false,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: 'smooth',
+      },
+      title: {
+        text: 'ECG',
+        align: 'left',
+      },
+      markers: {
+        size: 0,
+      },
+      yaxis: {
+        max: 100,
+      },
+      legend: {
+        show: false,
+      },
+    },
+  };
+
   const lineChartOptions = {
     options: {
       chart: {
@@ -130,71 +178,96 @@ const Dashboard = () => {
     pulse_oxi: '45',
     timestamp: '2022-08-18 12:46:56',
   });
+  const [ECGGraph, setECGGraph] = useState([]);
   const [Hdata, setHdata] = useState(HealthDataInitial);
   const [Udata, setUdata] = useState(UserDataInitial);
   const [series, setSeries] = useState([]);
-  const [img, setimg] = useState(loader);
+  // const [img, setimg] = useState(loader);
 
   useEffect(() => {
-    axios
-      .get('https://exploremychoice.in/sih/ventoxy/getdata.php')
-      .then((response) => {
-        setaxdata(response.data[0]);
-      });
+    setInterval(() => {
+      axios
+        .get('https://exploremychoice.in/sih/ventoxy/getdata.php')
+        .then((response) => {
+          setaxdata(response.data[0]);
+        });
 
-    setHdata([
-      {
-        name: 'Temperature',
-        image: 'bx bxs-thermometer temp-color',
-        value: `${axdata.temperature}`,
-      },
-      {
-        name: 'Blood Pressure',
-        image: 'bx bxs-heart-circle pressure-color',
-        value: `${axdata.blood_pressure}`,
-      },
-      {
-        name: 'Oxygen (Conc)',
-        image: 'bx bx-wind wind-color',
-        value: '78%',
-      },
-      {
-        name: 'Heart Rate',
-        image: 'bx bxs-heart heart-color',
-        value: `${axdata.heart_rate}`,
-      },
-    ]);
+      var i = 0;
+      var ecgTemp = [];
+      while (i < 12) {
+        var y = parseInt(Math.random() * (100 - 20) + 20);
+        ecgTemp.push(y);
+        console.log(y);
+        i++;
+      }
 
-    setUdata(UserData);
+      console.log(ecgTemp);
+      setECGGraph([
+        {
+          name: 'ECG',
+          data: ecgTemp,
+        },
+      ]);
 
-    setSeries([
-      {
-        name: 'Blood Pressure',
-        data: [30, 70, 20, 90, 36, 80, 30, 91, 60],
-      },
-      {
-        name: 'Heart Rate',
-        data: [70, 30, 70, 80, 40, 16, 40, 20, 51],
-      },
-      {
-        name: 'Oximeter',
-        data: [55, 16, 19, 67, 38, 90, 12, 21, 50],
-      },
-      {
-        name: 'Glucometer',
-        data: [10, 62, 78, 65, 23, 43, 78, 87, 28],
-      },
-    ]);
+      setHdata([
+        {
+          name: 'Temperature',
+          image: 'bx bxs-thermometer temp-color',
+          value: `${axdata.temperature}`,
+        },
+        {
+          name: 'Blood Pressure',
+          image: 'bx bxs-heart-circle pressure-color',
+          value: `${axdata.blood_pressure}`,
+        },
+        {
+          name: 'Oxygen (Conc)',
+          image: 'bx bx-wind wind-color',
+          value: '78%',
+        },
+        {
+          name: 'Heart Rate',
+          image: 'bx bxs-heart heart-color',
+          value: `${axdata.heart_rate}`,
+        },
+      ]);
 
-    setimg(ecg);
+      setUdata(UserData);
+
+      setSeries([
+        {
+          name: 'Blood Pressure',
+          data: [30, 70, 20, 90, 36, 80, 30, 91, 60],
+        },
+        {
+          name: 'Heart Rate',
+          data: [70, 30, 70, 80, 40, 16, 40, 20, 51],
+        },
+        {
+          name: 'Oximeter',
+          data: [55, 16, 19, 67, 38, 90, 12, 21, 50],
+        },
+        {
+          name: 'Glucometer',
+          data: [10, 62, 78, 65, 23, 43, 78, 87, 28],
+        },
+      ]);
+    }, 1000);
+
+    // setimg(ecg);
   }, [axdata]);
 
   return (
     <div>
       <div className="container">
         <div className="row">
-          <div className="img-container col-7">
-            <img src={img} alt="ecg" width="100%" height="100%"></img>
+          <div className="card-container col-7">
+            <Chart
+              options={ecgChart.options}
+              series={ECGGraph}
+              type="line"
+              height={210}
+            />
           </div>
           <div className="col-5">
             <div className="row">

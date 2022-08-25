@@ -218,7 +218,9 @@ const Dashboard = () => {
         {
           name: 'Blood Pressure',
           image: 'bx bxs-heart-circle pressure-color',
-          value: `${axdata.blood_pressure}`,
+          value_sys: `${axdata.systole}`,
+          value_dias: `${axdata.diastole}`,
+          value_puls: `${axdata.pulse}`,
         },
         {
           name: 'Oxygen (Conc)',
@@ -274,11 +276,24 @@ const Dashboard = () => {
               {Hdata.map((lists, index) => (
                 <div className="col-6" key={index}>
                   <div className="status-card flexbox fdir-col">
-                    <h4>{lists.name}</h4>
-                    <div className="flexbox">
-                      <i className={lists.image}></i>
-                      <h5>{lists.value}</h5>
-                    </div>
+                    <h4 style={{ marginBottom: '10px' }}>{lists.name}</h4>
+                    {lists.name === 'Blood Pressure' ? (
+                      <div className="flexbox">
+                        <i className={lists.image}></i>
+                        <h5 title="Systole" style={{ marginRight: '10px' }}>
+                          {lists.value_sys}
+                        </h5>
+                        <h5 title="Diastole" style={{ marginRight: '10px' }}>
+                          {lists.value_dias}
+                        </h5>
+                        <h5 title="Pulse">{lists.value_puls}</h5>
+                      </div>
+                    ) : (
+                      <div className="flexbox">
+                        <i className={lists.image}></i>
+                        <h5>{lists.value}</h5>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
